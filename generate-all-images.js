@@ -10,9 +10,9 @@ if (args.length === 0) {
 }
 
 const INPUT_DIR = path.resolve(args[0]);
-const OUTPUT_DIR = path.join(INPUT_DIR, "optimized");
+const OUTPUT_DIR = path.join(INPUT_DIR, "soptimized");
 const sizes = [400, 800, 1200, 1600];
-const quality = { avif: 50, webp: 75 };
+const quality = { avif: 50 };
 
 async function ensureOutDir() {
   try {
@@ -50,8 +50,7 @@ async function processFile(fileName) {
 
     try {
       await resized.clone().avif({ quality: quality.avif }).toFile(outAvif);
-      await resized.clone().webp({ quality: quality.webp }).toFile(outWebp);
-      console.log(`Generated ${basename}-${w}.avif and ${basename}-${w}.webp`);
+      console.log(`Generated ${basename}-${w}.avif`);
     } catch (err) {
       console.error(`Error generating ${basename}-${w}:`, err.message || err);
     }
